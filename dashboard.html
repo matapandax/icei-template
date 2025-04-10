@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telkom University Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="assets/css/dashboard.css">
+</head>
+<body>
+  <header>
+    <div class="logo">
+        <img src="assets/images/logo3-e1511767184374 1.png" alt="Telkom University Logo">
+    </div>
+    <div class="header-right">
+        <div class="notification-icon" id="notificationIcon">
+            <div class="notification-badge">3</div>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+            </svg>
+            
+            <div class="notification-dropdown" id="notificationDropdown">
+                <div class="notification-header">
+                    <div class="notification-title">Notifikasi</div>
+                    <div class="mark-all-read">Tandai semua sudah dibaca</div>
+                </div>
+                
+                <div class="notification-item unread">
+                    <div class="notification-dot"></div>
+                    <div class="notification-content">
+                        <div class="notification-message">
+                            Transaksi Berhasil: <span class="highlight">0001075603</span> - 
+                            IDR <span class="highlight">110.000</span> untuk Kirana Fathaya
+                        </div>
+                        <div class="notification-time">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <polyline points="12 6 12 12 16 14"></polyline>
+                            </svg>
+                            14 Jun 2022, 10:58 WIB
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="notification-item unread">
+                    <div class="notification-dot"></div>
+                    <div class="notification-content">
+                        <div class="notification-message">
+                            Sertifikat baru tersedia untuk kelas 
+                            <span class="highlight">Pemrograman Web Dasar</span>
+                        </div>
+                        <div class="notification-time">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <polyline points="12 6 12 12 16 14"></polyline>
+                            </svg>
+                            14 Jun 2022, 09:15 WIB
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="notification-item unread">
+                    <div class="notification-dot"></div>
+                    <div class="notification-content">
+                        <div class="notification-message">
+                            <span class="highlight">Dosen Ahmad Supriyadi</span> telah memposting 
+                            materi baru di mata kuliah Jaringan Komputer
+                        </div>
+                        <div class="notification-time">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <polyline points="12 6 12 12 16 14"></polyline>
+                            </svg>
+                            13 Jun 2022, 15:42 WIB
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="notification-item">
+                    <div class="notification-content">
+                        <div class="notification-message">
+                            Deadline pengumpulan tugas <span class="highlight">Ulangan Tengah Semester</span> 
+                            untuk mata kuliah Statistika
+                        </div>
+                        <div class="notification-time">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <polyline points="12 6 12 12 16 14"></polyline>
+                            </svg>
+                            12 Jun 2022, 08:30 WIB
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="notification-item">
+                    <div class="notification-content">
+                        <div class="notification-message">
+                            Saldo anda telah diperbarui. Saldo sekarang: 
+                            <span class="highlight">IDR 1.525.000,00</span>
+                        </div>
+                        <div class="notification-time">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <polyline points="12 6 12 12 16 14"></polyline>
+                            </svg>
+                            10 Jun 2022, 14:22 WIB
+                        </div>
+                    </div>
+                </div>
+                
+                <a href="#" class="view-all-link">Lihat semua notifikasi</a>
+            </div>
+        </div>
+        <div>Telkom University</div>
+        <div class="profile-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+        </div>
+        <div class="more-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="1"></circle>
+                <circle cx="19" cy="12" r="1"></circle>
+                <circle cx="5" cy="12" r="1"></circle>
+            </svg>
+        </div>
+    </div>
+</header>
+
+<div class="overlay" id="overlay"></div>
+    
+    <div class="container">
+        <aside class="sidebar">
+            <ul class="sidebar-menu">
+                <li class="menu-item active">
+                    <i>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="3" width="7" height="7"></rect>
+                            <rect x="14" y="3" width="7" height="7"></rect>
+                            <rect x="14" y="14" width="7" height="7"></rect>
+                            <rect x="3" y="14" width="7" height="7"></rect>
+                        </svg>
+                    </i>
+                    <span>Dashboard</span>
+                </li>
+                <li class="menu-item">
+                    <i>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="9" cy="7" r="4"></circle>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                        </svg>
+                    </i>
+                    <span>Peserta</span>
+                </li>
+                <li class="menu-item">
+                    <i>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 11.08V8l-6-6H6a2 2 0 0 0-2 2v16c0 1.1.9 2 2 2h12a2 2 0 0 0 2-2v-3.08"></path>
+                            <path d="M14 3v5h5"></path>
+                            <rect x="8" y="13" width="8" height="6"></rect>
+                        </svg>
+                    </i>
+                    <span>Dosen</span>
+                </li>
+                <li class="menu-item">
+                    <i>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                        </svg>
+                    </i>
+                    <span>Mata Kuliah</span>
+                </li>
+                <li class="menu-item dropdown">
+                    <i>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="12" y1="1" x2="12" y2="23"></line>
+                            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                        </svg>
+                    </i>
+                    <span>Transaksi</span>
+                </li>
+            </ul>
+        </aside>
+        
+        <main class="main-content">
+            <h2 class="dashboard-title">Dashboard</h2>
+            <p class="dashboard-subtitle">&lt;Lorem ipsum dolor sit amet, consectetur adipiscing elit&gt;</p>
+            
+            <div class="balance-card">
+                <div class="balance-label">
+                    <div class="balance-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                        </svg>
+                    </div>
+                    <span>Saldo Utama</span>
+                </div>
+                <div class="balance-amount">
+                    <div>IDR 1.525.000,00</div>
+                    <div class="online-status">
+                        <div class="online-indicator"></div>
+                        <div class="online-count">325</div>
+                        <div class="online-label">Sedang Online</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="transaction-cards">
+                <div class="transaction-card transaction-gray">
+                    <div class="transaction-title">Transaksi</div>
+                    <div class="transaction-count">375</div>
+                    <div class="transaction-details">
+                        Details ▼
+                    </div>
+                </div>
+                <div class="transaction-card transaction-red">
+                    <div class="transaction-title">Transaksi Proses</div>
+                    <div class="transaction-count">25</div>
+                    <div class="transaction-details">
+                        Details ▼
+                    </div>
+                </div>
+                <div class="transaction-card transaction-coral">
+                    <div class="transaction-title">Transaksi Berhasil</div>
+                    <div class="transaction-count">350</div>
+                    <div class="transaction-details">
+                        Details ▼
+                    </div>
+                </div>
+            </div>
+            
+            <div class="chart-container">
+                <div class="chart-title">Total peserta yang telah menyelesaikan transaksi</div>
+                <div class="chart">
+                    <div class="chart-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ff5252" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="9" cy="7" r="4"></circle>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                        </svg>
+                    </div>
+                    <canvas id="transactionChart"></canvas>
+                </div>
+            </div>
+            
+            <div class="chart-container">
+                <div class="chart-title">Total yang mengakses</div>
+                <div class="chart">
+                    <div class="chart-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ff5252" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="9" cy="7" r="4"></circle>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                        </svg>
+                    </div>
+                    <canvas id="accessChart"></canvas>
+                </div>
+            </div>
+            
+            <div class="totals-section">
+                <div class="total-card">
+                    <div class="total-label">
+                        <div>Total</div>
+                        <div>Dosen</div>
+                    </div>
+                    <div class="total-count">85</div>
+                </div>
+                <div class="total-card">
+                    <div class="total-label">
+                        <div>Total</div>
+                        <div>Mata Kuliah</div>
+                    </div>
+                    <div class="total-count">15</div>
+                </div>
+            </div>
+            
+            <div class="cert-claim-card">
+                <div class="total-label">
+                    <div>Total</div>
+                    <div>Klaim Sertifikat</div>
+                </div>
+                <div class="total-count">320</div>
+            </div>
+            
+            <footer>
+                <div class="footer-logos">
+                    <img src="assets/images/logo 4.png" alt="Indonesia Cyber Education" class="footer-logo">
+                    <img src="assets/images/logo3-e1511767184374 1.png" alt="Telkom University" class="footer-logo">
+                </div>
+                <div class="footer-links">
+                    <div class="footer-link">Terms of Service</div>
+                    <div class="footer-link">Privacy Policy</div>
+                    <div class="footer-link">Support</div>
+                </div>
+            </footer>
+        </main>
+    </div>
+</body>
+<div class="overlay" id="overlay"></div>
+    
+<!--<button class="toggle-demo" id="toggleDemo">Toggle Notification</button>-->
+
+<script>
+    // Demo functionality
+    const notificationIcon = document.getElementById('notificationIcon');
+    const notificationDropdown = document.getElementById('notificationDropdown');
+    const overlay = document.getElementById('overlay');
+    const toggleDemo = document.getElementById('toggleDemo');
+    
+    notificationIcon.addEventListener('click', function() {
+        notificationDropdown.classList.toggle('show');
+        overlay.classList.toggle('show');
+    });
+    
+    overlay.addEventListener('click', function() {
+        notificationDropdown.classList.remove('show');
+        overlay.classList.remove('show');
+    });
+    
+    toggleDemo.addEventListener('click', function() {
+        notificationDropdown.classList.toggle('show');
+        overlay.classList.toggle('show');
+    });
+</script>
+</html>
