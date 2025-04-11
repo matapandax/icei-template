@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Telkom University Dashboard</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="assets/css/dashboard.css">
 </head>
 <body>
@@ -218,6 +219,7 @@
                     <div class="transaction-details">
                         Details ▼
                     </div>
+                    <div id="modal-container"></div>
                 </div>
                 <div class="transaction-card transaction-red">
                     <div class="transaction-title">Transaksi Proses</div>
@@ -237,7 +239,7 @@
             
             <div class="chart-container">
                 <div class="chart-title">Total peserta yang telah menyelesaikan transaksi</div>
-                <div class="chart">
+                <div class="chart" style="height: 400px;">
                     <div class="chart-icon">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ff5252" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
@@ -252,7 +254,7 @@
             
             <div class="chart-container">
                 <div class="chart-title">Total yang mengakses</div>
-                <div class="chart">
+                <div class="chart" style="height: 400px;">
                     <div class="chart-icon">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ff5252" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
@@ -305,29 +307,179 @@
     </div>
 </body>
 <div class="overlay" id="overlay"></div>
-    
-<!--<button class="toggle-demo" id="toggleDemo">Toggle Notification</button>-->
 
 <script>
-    // Demo functionality
-    const notificationIcon = document.getElementById('notificationIcon');
-    const notificationDropdown = document.getElementById('notificationDropdown');
-    const overlay = document.getElementById('overlay');
-    const toggleDemo = document.getElementById('toggleDemo');
+  // Function to load and display the modal
+  function openTransactionModal(event) {
+      // Prevent default action if it's a link
+      if (event) event.preventDefault();
+      
+      const modalOverlay = document.getElementById('modal-overlay');
+      
+      // Fetch the modal HTML content
+      fetch('modal_transaksi.html')
+          .then(response => response.text())
+          .then(html => {
+              // Insert the HTML into the overlay
+              modalOverlay.innerHTML = html;
+              
+              // Show the modal overlay
+              modalOverlay.style.display = 'flex';
+              
+              // Get the modal element
+              const modalElement = modalOverlay.querySelector('.modal');
+              
+              // Add animation class
+              modalElement.classList.add('modal-animate-in');
+              
+              // Add event listeners to close buttons
+              const closeButtons = modalOverlay.querySelectorAll('.close-button, .close-modal-button');
+              closeButtons.forEach(button => {
+                  button.addEventListener('click', closeModal);
+              });
+              
+              // Close modal when clicking outside
+              modalOverlay.addEventListener('click', function(event) {
+                  if (event.target === modalOverlay) {
+                      closeModal();
+                  }
+              });
+              
+              // Handle escape key press
+              document.addEventListener('keydown', function(event) {
+                  if (event.key === 'Escape') {
+                      closeModal();
+                  }
+              });
+              
+              // Prevent scrolling on the body
+              document.body.style.overflow = 'hidden';
+          })
+          .catch(error => console.error('Error loading modal:', error));
+  }
+  
+  // Function to close the modal with animation
+  function closeModal() {
+      const modalOverlay = document.getElementById('modal-overlay');
+      const modalElement = modalOverlay.querySelector('.modal');
+      
+      // Add closing animation
+      modalElement.classList.remove('modal-animate-in');
+      modalElement.classList.add('modal-animate-out');
+      
+      // Wait for animation to finish before hiding
+      setTimeout(function() {
+          modalOverlay.style.display = 'none';
+          // Reset overflow on body
+          document.body.style.overflow = '';
+      }, 300);
+  }
+
+  // Add event listener to transaction details button
+  document.querySelector('.transaction-details').addEventListener('click', openTransactionModal);
+</script>
     
-    notificationIcon.addEventListener('click', function() {
-        notificationDropdown.classList.toggle('show');
-        overlay.classList.toggle('show');
-    });
-    
-    overlay.addEventListener('click', function() {
-        notificationDropdown.classList.remove('show');
-        overlay.classList.remove('show');
-    });
-    
-    toggleDemo.addEventListener('click', function() {
-        notificationDropdown.classList.toggle('show');
-        overlay.classList.toggle('show');
-    });
+<!--<button class="toggle-demo" id="toggleDemo">Toggle Notification</button>-->
+<script>
+  // Modal Transaksi
+  function openTransactionModal(event) {
+    if (event) event.preventDefault();
+    const modalOverlay = document.getElementById('modal-overlay');
+    fetch('modal_transaksi.html')
+      .then(res => res.text())
+      .then(html => {
+        modalOverlay.innerHTML = html;
+        modalOverlay.style.display = 'flex';
+        const modal = modalOverlay.querySelector('.modal');
+        modal.classList.add('modal-animate-in');
+        modalOverlay.querySelectorAll('.close-button, .close-modal-button')
+          .forEach(btn => btn.addEventListener('click', closeModal));
+        modalOverlay.addEventListener('click', e => {
+          if (e.target === modalOverlay) closeModal();
+        });
+        document.addEventListener('keydown', e => {
+          if (e.key === 'Escape') closeModal();
+        });
+        document.body.style.overflow = 'hidden';
+      })
+      .catch(err => console.error('Error loading modal:', err));
+  }
+
+  function closeModal() {
+    const modalOverlay = document.getElementById('modal-overlay');
+    const modal = modalOverlay.querySelector('.modal');
+    modal.classList.remove('modal-animate-in');
+    modal.classList.add('modal-animate-out');
+    setTimeout(() => {
+      modalOverlay.style.display = 'none';
+      document.body.style.overflow = '';
+    }, 300);
+  }
+
+  document.querySelectorAll('.transaction-details').forEach(item => {
+    item.addEventListener('click', openTransactionModal);
+  });
+</script>
+
+<script>
+  const transactionChartCtx = document.getElementById('transactionChart').getContext('2d');
+  new Chart(transactionChartCtx, {
+    type: 'bar',
+    data: {
+      labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul'],
+      datasets: [{
+        label: 'Completed Transactions',
+        data: [65, 78, 90, 81, 105, 120, 135],
+        backgroundColor: '#ff5252',
+        borderRadius: 4
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend: { display: false } },
+      scales: {
+        y: { beginAtZero: true }
+      }
+    }
+  });
+
+  const accessChartCtx = document.getElementById('accessChart').getContext('2d');
+  new Chart(accessChartCtx, {
+    type: 'line',
+    data: {
+      labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul'],
+      datasets: [{
+        label: 'Access Count',
+        data: [120, 150, 180, 165, 210, 240, 270],
+        borderColor: '#ff5252',
+        backgroundColor: 'rgba(255,82,82,0.1)',
+        tension: 0.4,
+        pointRadius: 5
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend: { display: false } },
+      scales: {
+        y: { beginAtZero: true }
+      }
+    }
+  });
+</script>
+
+<script>
+  const notificationIcon = document.getElementById('notificationIcon');
+  const notificationDropdown = document.getElementById('notificationDropdown');
+  const overlay = document.getElementById('overlay');
+
+  notificationIcon.addEventListener('click', function () {
+    notificationDropdown.classList.toggle('show');
+    overlay.classList.toggle('show');
+  });
+
+  overlay.addEventListener('click', function () {
+    notificationDropdown.classList.remove('show');
+    overlay.classList.remove('show');
+  });
 </script>
 </html>
