@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile - Telkom University</title>
+    <!-- Include CKEditor 5 from CDN -->
+    <script src="https://cdn.ckeditor.com/ckeditor5/40.2.0/classic/ckeditor.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+        }
+        
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        /* Sidebar styling */
+        .sidebar {
+            width: 205px;
+            background-color: white;
+            border-right: 1px solid #e0e0e0;
+            padding: 20px 0;
+        }
+        
+        .sidebar-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            color: #444;
+            text-decoration: none;
+            margin-bottom: 5px;
+        }
+        
+        .sidebar-item:hover {
+            background-color: #f0f0f0;
+        }
+        
+        .sidebar-item i {
+            margin-right: 15px;
+            color: #666;
+            width: 20px;
+        }
+        
+        .dropdown {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        /* Header styling */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: white;
+            border-bottom: 1px solid #e0e0e0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 40px;
+        }
+        
+        .header-right {
+            display: flex;
+            align-items: center;
+        }
+        
+        .user-profile {
+            display: flex;
+            align-items: center;
+            background-color: #f9f9f9;
+            padding: 5px 15px;
+            border-radius: 20px;
+            margin-left: 15px;
+        }
+        
+        .user-profile img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin-left: 8px;
+        }
+        
+        /* Main content styling */
+        .main-content {
+            flex: 1;
+            padding: 80px 30px 30px;
+        }
+        
+        .tabs {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        
+        .tab {
+            padding: 10px 15px;
+            margin-right: 5px;
+            color: #666;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        
+        .tab.active {
+            color: #e74c3c;
+            border-bottom: 2px solid #e74c3c;
+        }
+        
+        h1 {
+            color: #e74c3c;
+            font-size: 22px;
+            margin-bottom: 5px;
+        }
+        
+        .subtitle {
+            color: #888;
+            font-size: 14px;
+            margin-bottom: 25px;
+        }
+        
+        /* Form styling */
+        .form-group {
+            margin-bottom: 25px;
+            display: flex;
+        }
+        
+        .form-label {
+            width: 250px;
+            font-size: 14px;
+            color: #444;
+        }
+        
+        .form-label .description {
+            font-size: 12px;
+            color: #888;
+            margin-top: 3px;
+        }
+        
+        .form-input {
+            flex: 1;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        input[type="text"], 
+        input[type="url"] {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        
+        /* CKEditor container styling */
+        .ck-editor__editable {
+            min-height: 150px !important;
+        }
+        
+        .ck.ck-editor {
+            width: 100%;
+        }
+        
+        .ck.ck-content {
+            font-size: 14px;
+            padding: 15px;
+        }
+        
+        .button-container {
+            display: flex;
+            justify-content: flex-end;
+        }
+        
+        .button {
+            padding: 8px 15px;
+            background-color: #1e88e5;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        .button.secondary {
+            background-color: #f5f5f5;
+            color: #444;
+            margin-right: 10px;
+        }
+        
+        /* Logo upload area */
+        .logo-upload {
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .logo-preview {
+            width: 150px;
+            padding: 15px;
+            background-color: #f5f5f5;
+            border-radius: 4px;
+            text-align: center;
+        }
+        
+        .logo-preview img {
+            max-width: 100%;
+            margin-bottom: 10px;
+        }
+        
+        .upload-info {
+            font-size: 12px;
+            color: #888;
+            text-align: center;
+            margin-top: 10px;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px solid #e0e0e0;
+        }
+        
+        .footer-logos {
+            display: flex;
+            align-items: center;
+        }
+        
+        .footer-logos img {
+            height: 30px;
+            margin-right: 15px;
+        }
+        
+        .footer-links a {
+            color: #666;
+            text-decoration: none;
+            margin-left: 15px;
+            font-size: 14px;
+        }
+        
+        /* Social media links */
+        .social-icon {
+            width: 20px;
+            margin-right: 10px;
+        }
+
+        /* Icons for sidebar */
+        .sidebar-icon {
+            width: 18px;
+            height: 18px;
+            margin-right: 15px;
+            display: inline-block;
+        }
+
+        /* Custom icons for social media */
+        .twitter-icon, .instagram-icon, .facebook-icon, .linkedin-icon {
+            font-size: 18px;
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+
+        .twitter-icon::before {
+            content: '\1F426'; /* Bird emoji */
+        }
+
+        .instagram-icon::before {
+            content: '\1F4F8'; /* Camera emoji */
+        }
+
+        .facebook-icon::before {
+            content: '\1F4D8'; /* Blue book emoji */
+        }
+
+        .linkedin-icon::before {
+            content: '\1F517'; /* Link emoji */
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .form-group {
+                flex-direction: column;
+            }
+            
+            .form-label {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+            
+            .sidebar {
+                width: 60px;
+            }
+            
+            .sidebar-item span {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="assets/images/logo3-e1511767184374 1.png" alt="Telkom University">
+        </div>
+        <div class="header-right">
+            <i class="notification-icon">🔔</i>
+            <div class="user-profile">
+                <span>Hello, </span>
+                <span>Telkom University</span>
+                <img src="https://via.placeholder.com/30" alt="Profile">
+            </div>
+            <i class="menu-icon">⋮</i>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="sidebar">
+            <a href="#" class="sidebar-item">
+                <i class="sidebar-icon">📊</i> Dashboard
+            </a>
+            <a href="#" class="sidebar-item dropdown">
+                <div><i class="sidebar-icon">👥</i> Peserta</div>
+                <div>▼</div>
+            </a>
+            <a href="#" class="sidebar-item">
+                <i class="sidebar-icon">👨‍🏫</i> Dosen
+            </a>
+            <a href="#" class="sidebar-item">
+                <i class="sidebar-icon">📚</i> Mata Kuliah
+            </a>
+            <a href="#" class="sidebar-item dropdown">
+                <div><i class="sidebar-icon">💰</i> Transaksi</div>
+                <div>▼</div>
+            </a>
+        </div>
+
+        <div class="main-content">
+            <div class="tabs">
+                <a href="#" class="tab active">Edit Profile</a>
+                <a href="#" class="tab">Profile</a>
+            </div>
+
+            <h1>Edit Profile</h1>
+            <div class="subtitle">Perbarui foto dan detail Institusi Anda di sini</div>
+
+            <form>
+                <div class="form-group">
+                    <div class="form-label">
+                        <div>Nama Institusi</div>
+                        <div class="description">Ini akan ditampilkan di profil Anda</div>
+                    </div>
+                    <div class="form-input">
+                        <input type="text" value="Telkom University">
+                        <button class="button secondary" style="margin-left: 10px;">Batal</button>
+                        <button class="button" style="margin-left: 10px;">Simpan</button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="form-label"></div>
+                    <div class="form-input">
+                        <input type="text" value="icel.ac.id/telkom_university" style="margin-right: 10px;">
+                        <input type="text" value="telkom_university">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="form-label">
+                        <div>No. Rekening</div>
+                        <div class="description">Nomor tujuan transfer untuk saldo tunai</div>
+                    </div>
+                    <div class="form-input">
+                        <input type="text" value="7632-01-007520-53-0">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="form-label">
+                        <div>NPWP</div>
+                    </div>
+                    <div class="form-input">
+                        <input type="text" value="08.178.554.2-123.321">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="form-label">
+                        <div>Deskripsi</div>
+                        <div class="description">Deskripsi singkat tentang Institusi Anda</div>
+                    </div>
+                    <div class="form-input">
+                        <!-- CKEditor container -->
+                        <div id="editor">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, Lorem ipsum</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="form-label">
+                        <div>Tagline</div>
+                    </div>
+                    <div class="form-input">
+                        <input type="text" value="Lorem ipsum dolor sit amet, consectetur adipiscing elit">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="form-label">
+                        <div>Media Sosial</div>
+                    </div>
+                    <div class="form-input">
+                        <div style="display: flex; align-items: center; margin-bottom: 10px; width: 100%;">
+                            <span class="twitter-icon"></span>
+                            <input type="url" value="twitter.com/" style="margin-right: 10px; width: 200px;">
+                            <input type="text" value="TelUniversity">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="form-label"></div>
+                    <div class="form-input">
+                        <div style="display: flex; align-items: center; margin-bottom: 10px; width: 100%;">
+                            <span class="instagram-icon"></span>
+                            <input type="url" value="instagram.com/" style="margin-right: 10px; width: 200px;">
+                            <input type="text" value="telkomuniversity">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="form-label"></div>
+                    <div class="form-input">
+                        <div style="display: flex; align-items: center; margin-bottom: 10px; width: 100%;">
+                            <span class="facebook-icon"></span>
+                            <input type="url" value="facebook.com/" style="margin-right: 10px; width: 200px;">
+                            <input type="text" value="telkomuniversity">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="form-label"></div>
+                    <div class="form-input">
+                        <div style="display: flex; align-items: center; margin-bottom: 10px; width: 100%;">
+                            <span class="linkedin-icon"></span>
+                            <input type="url" value="linkedin.com/" style="margin-right: 10px; width: 200px;">
+                            <input type="text" value="school/telkom-university/">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="form-label">
+                        <div>Logo Institusi</div>
+                        <div class="description">Perbarui logo Institusi Anda</div>
+                    </div>
+                    <div class="form-input">
+                        <div class="logo-upload">
+                            <div class="logo-preview">
+                                <img src="assets/images/logo3-e1511767184374 1.png" alt="Telkom University Logo">
+                                <div class="upload-info">
+                                    Klik untuk menggunggah atau seret dan lepas<br>
+                                    SVG, PNG, JPG (maks. 500 piksel)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-logos">
+            <img src="assets/images/logo 4.png" alt="Indonesia Cyber Education Institute">
+            <img src="assets/images/logo3-e1511767184374 1.png" alt="Telkom University">
+        </div>
+        <div class="footer-links">
+            <a href="#">Terms of Service</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Support</a>
+        </div>
+    </footer>
+
+    <!-- Initialize CKEditor 5 -->
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#editor'), {
+                toolbar: {
+                    items: [
+                        'heading',
+                        '|',
+                        'bold',
+                        'italic',
+                        'link',
+                        'bulletedList',
+                        'numberedList',
+                        '|',
+                        'alignment',
+                        'indent',
+                        'outdent',
+                        '|',
+                        'imageUpload',
+                        'blockQuote',
+                        'insertTable',
+                        'undo',
+                        'redo'
+                    ]
+                },
+                language: 'id',
+                image: {
+                    toolbar: [
+                        'imageTextAlternative',
+                        'imageStyle:full',
+                        'imageStyle:side'
+                    ]
+                },
+                table: {
+                    contentToolbar: [
+                        'tableColumn',
+                        'tableRow',
+                        'mergeTableCells'
+                    ]
+                },
+                licenseKey: '',
+            })
+            .then(editor => {
+                console.log('CKEditor initialized', editor);
+            })
+            .catch(error => {
+                console.error('Error initializing CKEditor:', error);
+            });
+    </script>
+</body>
+</html>
